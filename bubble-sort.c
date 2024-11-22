@@ -1,44 +1,53 @@
-#include <stdbool.h>
-#include <stdio.h>
-
-void swap(int* xp, int* yp){
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
-
-// An optimized version of Bubble Sort
-void bubbleSort(int arr[], int n){
+#include <stdio.h> 
+ 
+#define MAX_LEN 100
+ 
+static void swap(int *x, int *y)
+{ 
+    int tmp = *x; 
+    *x = *y; 
+    *y = tmp; 
+} 
+ 
+static void bubble_sort(int *array, int len)
+{ 
     int i, j;
-    bool swapped;
-    for (i = 0; i < n - 1; i++) {
-        swapped = false;
-        for (j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(&arr[j], &arr[j + 1]);
-                swapped = true;
-            }
-        }
-
-        // If no two elements were swapped by inner loop,
-        // then break
-        if (swapped == false)
-            break;
-    }
+ 
+    for (i = 0; i < len - 1; i++)
+        for (j = 0; j < len - 1; j++)  
+            if (array[j] > array[j + 1]) 
+                swap(&array[j], &array[j + 1]); 
 }
-
-// Function to print an array
-void printArray(int arr[], int size){
+ 
+static void print_array(int *array, int len)
+{
     int i;
-    for (i = 0; i < size; i++)
-        printf("%d ", arr[i]);
+ 
+    for (i = 0; i < len; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
 }
-
-int main(){
-    int arr[] = { 64, 34, 25, 12, 22, 11, 90 };
-    int n = sizeof(arr) / sizeof(arr[0]);
-    bubbleSort(arr, n);
-    printf("Sorted array: \n");
-    printArray(arr, n);
-    return 0;
-}
+ 
+int main()
+{
+    int array[MAX_LEN], len, i;
+ 
+    printf("What's the length of the array? Maximum lenght is %d\n", MAX_LEN);
+    scanf("%d", &len);
+ 
+    printf("Gimme the %d elements\n", len);
+    for (i = 0; i < len; i++) {
+    scanf("%d", &array[i]);
+    }
+ 
+    printf("Nonsorted array: ");
+    print_array(array, len);
+ 
+    bubble_sort(array, len);
+ 
+    printf("Sorted array: ");
+    print_array(array, len);
+ 
+    return 0; 
+} 
